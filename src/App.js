@@ -2,22 +2,27 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  function pageLoader(url,callback){
+    fetch(url)
+        .then(response => response.json())
+        .then(json => callback(json))
+  }
+
+  function getAjax (data){
+    console.log('sending request to the page')
+    console.log('Server is responding:')
+    console.log(data);
+    pageLoader('https://jsonplaceholder.typicode.com/users/' + data.userId, showUser);
+  }
+  function showUser(user){
+    console.log(user);
+  }
+  pageLoader ('https://jsonplaceholder.typicode.com/todos/1', getAjax)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   );
 }
